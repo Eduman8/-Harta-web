@@ -15,12 +15,67 @@
   border-color: color-mix(in srgb, var(--primary) 42%, var(--border));
   box-shadow: var(--shadow);
 }
-.card img {
+.card__image {
   width: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
   border-radius: 12px;
+  cursor: zoom-in;
 }
+.image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+  cursor: zoom-out;
+  animation: image-modal-fade 0.22s ease-out;
+}
+
+.image-modal img {
+  width: auto;
+  max-width: 92%;
+  max-height: 92%;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  cursor: default;
+  animation: image-modal-scale 0.24s ease-out;
+}
+
+@keyframes image-modal-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes image-modal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-modal,
+  .image-modal img {
+    animation: none;
+  }
+}
+
 .card__body {
   display: grid;
   gap: 6px;

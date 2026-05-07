@@ -1,16 +1,38 @@
+import { useEffect, useState } from "react";
 import "./productCard.css";
 import { useCart } from "../Hooks/useCart";
 import { useNavigate } from "react-router-dom";
 
-function productCard({ product }) {
+function ProductCard({ product }) {
   const { addToCart, isMutatingCart } = useCart();
   const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null);
   const hasStock = Number(product?.stock || 0) > 0;
   const isActive = product?.active !== false;
   const canBuy = hasStock && isActive;
   const stockLabel = !isActive ? "No disponible" : !hasStock ? "Sin stock" : "En stock";
   const stockClass = !isActive || !hasStock ? "stock-pill stock-pill--off" : "stock-pill";
   const description = typeof product?.description === "string" ? product.description.trim() : "";
+  const productImage = product?.image_url || product?.image;
+
+  useEffect(() => {
+    if (!selectedImage) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setSelectedImage(null);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedImage]);
 
   return (
     <div
@@ -19,7 +41,15 @@ function productCard({ product }) {
         navigate(`/category/${product.category_id || encodeURIComponent(product.category)}`)
       }
     >
-      <img src={product.image} alt={product.name} />
+      <img
+        className="card__image"
+        src={productImage}
+        alt={product.name}
+        onClick={(event) => {
+          event.stopPropagation();
+          setSelectedImage(productImage);
+        }}
+      />
       <div className="card__body">
         <h3>{product.name}</h3>
         {description && <p className="card__description">{description}</p>}
@@ -42,7 +72,23 @@ function productCard({ product }) {
             ? "Agregando..."
             : "Agregar al carrito"}
       </button>
+
+      {selectedImage && (
+        <div
+          className="image-modal"
+          onClick={(event) => {
+            event.stopPropagation();
+            setSelectedImage(null);
+          }}
+        >
+          <img
+            src={selectedImage}
+            alt={product.name}
+            onClick={(event) => event.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 }
-export default productCard;
+export default ProductCard;
