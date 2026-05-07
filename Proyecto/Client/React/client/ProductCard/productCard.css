@@ -15,12 +15,99 @@
   border-color: color-mix(in srgb, var(--primary) 42%, var(--border));
   box-shadow: var(--shadow);
 }
-.card img {
+.card__image {
   width: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
   border-radius: 12px;
+  cursor: zoom-in;
 }
+.product-image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  backdrop-filter: blur(4px);
+  cursor: zoom-out;
+  animation: product-image-lightbox-fade 0.18s ease-out;
+}
+
+.product-image-lightbox__image {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  cursor: default;
+  animation: product-image-lightbox-scale 0.2s ease-out;
+}
+
+.product-image-lightbox__close {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  font-size: 2rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.product-image-lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.32);
+  transform: scale(1.04);
+}
+
+.product-image-lightbox__close:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.72);
+  outline-offset: 3px;
+}
+
+@keyframes product-image-lightbox-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes product-image-lightbox-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-image-lightbox,
+  .product-image-lightbox__image {
+    animation: none;
+  }
+}
+
 .card__body {
   display: grid;
   gap: 6px;
