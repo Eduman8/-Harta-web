@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import "./productCard.css";
 import { useCart } from "../Hooks/useCart";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,10 @@ function ProductCard({ product }) {
   const stockClass = !isActive || !hasStock ? "stock-pill stock-pill--off" : "stock-pill";
   const description = typeof product?.description === "string" ? product.description.trim() : "";
   const productImage = product?.image_url || product?.image;
+
+  const closeLightbox = () => {
+    setSelectedImage(null);
+  };
 
   useEffect(() => {
     if (!selectedImage) return undefined;
@@ -35,60 +40,74 @@ function ProductCard({ product }) {
   }, [selectedImage]);
 
   return (
-    <div
-      className="card"
-      onClick={() =>
-        navigate(`/category/${product.category_id || encodeURIComponent(product.category)}`)
-      }
-    >
-      <img
-        className="card__image"
-        src={productImage}
-        alt={product.name}
-        onClick={(event) => {
-          event.stopPropagation();
-          setSelectedImage(productImage);
-        }}
-      />
-      <div className="card__body">
-        <h3>{product.name}</h3>
-        {description && <p className="card__description">{description}</p>}
-        <p className="card__price">${product.price}</p>
-        <p className={stockClass}>{stockLabel}</p>
-      </div>
-      <button
-        className="card__buy-btn"
-        onClick={(event) => {
-          event.stopPropagation();
-          addToCart(product);
-        }}
-        disabled={!canBuy || isMutatingCart}
+    <>
+      <div
+        className="card"
+        onClick={() =>
+          navigate(`/category/${product.category_id || encodeURIComponent(product.category)}`)
+        }
       >
-        {!canBuy
-          ? !isActive
-            ? "Producto inactivo"
-            : "Producto agotado"
-          : isMutatingCart
-            ? "Agregando..."
-            : "Agregar al carrito"}
-      </button>
-
-      {selectedImage && (
-        <div
-          className="image-modal"
+        <img
+          className="card__image"
+          src={productImage}
+          alt={product.name}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setSelectedImage(productImage);
+          }}
+        />
+        <div className="card__body">
+          <h3>{product.name}</h3>
+          {description && <p className="card__description">{description}</p>}
+          <p className="card__price">${product.price}</p>
+          <p className={stockClass}>{stockLabel}</p>
+        </div>
+        <button
+          className="card__buy-btn"
           onClick={(event) => {
             event.stopPropagation();
-            setSelectedImage(null);
+            addToCart(product);
           }}
+          disabled={!canBuy || isMutatingCart}
         >
-          <img
-            src={selectedImage}
-            alt={product.name}
-            onClick={(event) => event.stopPropagation()}
-          />
-        </div>
-      )}
-    </div>
+          {!canBuy
+            ? !isActive
+              ? "Producto inactivo"
+              : "Producto agotado"
+            : isMutatingCart
+              ? "Agregando..."
+              : "Agregar al carrito"}
+        </button>
+      </div>
+
+      {selectedImage &&
+        createPortal(
+          <div
+            className="product-image-lightbox"
+            role="dialog"
+            aria-modal="true"
+            onClick={closeLightbox}
+          >
+            <button
+              type="button"
+              className="product-image-lightbox__close"
+              onClick={closeLightbox}
+              aria-label="Cerrar imagen"
+            >
+              ×
+            </button>
+
+            <img
+              className="product-image-lightbox__image"
+              src={selectedImage}
+              alt={product.name}
+              onClick={(event) => event.stopPropagation()}
+            />
+          </div>,
+          document.body,
+        )}
+    </>
   );
 }
 export default ProductCard;

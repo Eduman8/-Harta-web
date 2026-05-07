@@ -22,32 +22,64 @@
   border-radius: 12px;
   cursor: zoom-in;
 }
-.image-modal {
+.product-image-lightbox {
   position: fixed;
   inset: 0;
+  z-index: 99999;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.88);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
-  padding: 20px;
+  padding: 24px;
+  box-sizing: border-box;
   backdrop-filter: blur(4px);
   cursor: zoom-out;
-  animation: image-modal-fade 0.22s ease-out;
+  animation: product-image-lightbox-fade 0.18s ease-out;
 }
 
-.image-modal img {
-  width: auto;
-  max-width: 92%;
-  max-height: 92%;
+.product-image-lightbox__image {
+  max-width: 92vw;
+  max-height: 92vh;
   object-fit: contain;
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
   cursor: default;
-  animation: image-modal-scale 0.24s ease-out;
+  animation: product-image-lightbox-scale 0.2s ease-out;
 }
 
-@keyframes image-modal-fade {
+.product-image-lightbox__close {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  font-size: 2rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.product-image-lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.32);
+  transform: scale(1.04);
+}
+
+.product-image-lightbox__close:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.72);
+  outline-offset: 3px;
+}
+
+@keyframes product-image-lightbox-fade {
   from {
     opacity: 0;
   }
@@ -57,7 +89,7 @@
   }
 }
 
-@keyframes image-modal-scale {
+@keyframes product-image-lightbox-scale {
   from {
     opacity: 0;
     transform: scale(0.96);
@@ -70,8 +102,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .image-modal,
-  .image-modal img {
+  .product-image-lightbox,
+  .product-image-lightbox__image {
     animation: none;
   }
 }
