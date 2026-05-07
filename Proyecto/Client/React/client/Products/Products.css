@@ -203,6 +203,71 @@
   align-items: stretch;
 }
 
+.product-pagination {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin-top: clamp(18px, 3vw, 28px);
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+.product-pagination__info {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.product-pagination__controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.product-pagination__controls button {
+  min-width: 44px;
+  min-height: 42px;
+  padding: 0.55rem 0.78rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-soft) 55%, var(--surface));
+  color: var(--text);
+  box-shadow: 0 8px 22px color-mix(in srgb, #000 18%, transparent);
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 800;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.product-pagination__controls button:not(:disabled):hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--primary) 54%, var(--border));
+  background: color-mix(in srgb, var(--primary) 16%, var(--surface));
+}
+
+.product-pagination__controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.product-pagination__page--active {
+  border-color: color-mix(in srgb, var(--primary) 72%, var(--border));
+  background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 70%, #ffffff 18%));
+  color: var(--primary-contrast, #111111);
+}
+
 .empty-products {
   display: grid;
   justify-items: center;
@@ -317,13 +382,16 @@
 .product-catalog,
 .product-catalog__results,
 .product-catalog__layout,
-.product-catalog__grid {
+.product-catalog__grid,
+.product-pagination,
+.product-pagination__controls {
   min-width: 0;
 }
 
 .product-filters__toggle:focus-visible,
 .product-filters__header button:focus-visible,
 .empty-products button:focus-visible,
+.product-pagination__controls button:focus-visible,
 .product-check:focus-within {
   outline: 2px solid color-mix(in srgb, var(--primary) 55%, transparent);
   outline-offset: 2px;
@@ -382,6 +450,21 @@
     width: 100%;
     text-align: center;
     white-space: normal;
+  }
+
+  .product-pagination {
+    padding: 14px 12px;
+    border-radius: 18px;
+  }
+
+  .product-pagination__controls {
+    gap: 7px;
+  }
+
+  .product-pagination__controls button {
+    min-width: 42px;
+    min-height: 40px;
+    padding: 0.5rem 0.68rem;
   }
 
   .product-catalog__grid {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../ProductCard/productCard";
 import ProductCardSkeleton from "../ProductCard/ProductCardSkeleton";
@@ -8,6 +8,7 @@ import EmptyProductsState from "./EmptyProductsState";
 import "./Products.css";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
+const productsPerPage = 8;
 const DEFAULT_FILTERS = {
   search: "",
   categoryId: "",
@@ -59,6 +60,8 @@ function ProductCatalog({ initialCategory = "", title = "Productos", subtitle = 
   const [errorMessage, setErrorMessage] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [initialCategoryApplied, setInitialCategoryApplied] = useState(!initialCategory);
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsRef = useRef(null);
 
   const currentCategoryName = useMemo(() => {
     const selected = categories.find((category) => String(category.id) === String(filters.categoryId));
@@ -115,6 +118,10 @@ function ProductCatalog({ initialCategory = "", title = "Productos", subtitle = 
   }, [categories, categoriesLoaded, initialCategory, initialCategoryApplied, searchParams]);
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
+
+  useEffect(() => {
     const timeoutId = window.setTimeout(() => {
       setDebouncedFilters(filters);
     }, 300);
@@ -165,6 +172,33 @@ function ProductCatalog({ initialCategory = "", title = "Productos", subtitle = 
     return () => controller.abort();
   }, [debouncedFilters, initialCategoryApplied]);
 
+  const filteredProducts = useMemo(() => products, [products]);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const validCurrentPage = totalPages > 0 ? Math.min(currentPage, totalPages) : 1;
+  const startIndex = (validCurrentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+  const firstVisibleProduct = filteredProducts.length > 0 ? startIndex + 1 : 0;
+  const lastVisibleProduct = Math.min(endIndex, filteredProducts.length);
+
+  useEffect(() => {
+    if (currentPage !== validCurrentPage) {
+      setCurrentPage(validCurrentPage);
+    }
+  }, [currentPage, validCurrentPage]);
+
+  const scrollToResults = () => {
+    resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handlePageChange = (page) => {
+    const nextPage = Math.min(Math.max(page, 1), totalPages || 1);
+    if (nextPage === currentPage) return;
+
+    setCurrentPage(nextPage);
+    window.requestAnimationFrame(scrollToResults);
+  };
+
   const handleClearFilters = () => {
     setFilters(DEFAULT_FILTERS);
     setDebouncedFilters(DEFAULT_FILTERS);
@@ -195,17 +229,65 @@ function ProductCatalog({ initialCategory = "", title = "Productos", subtitle = 
           onToggle={() => setFiltersOpen((isOpen) => !isOpen)}
         />
 
-        <div className="product-catalog__results">
+        <div className="product-catalog__results" ref={resultsRef}>
           {isLoadingProducts ? (
             <div className="product-catalog__grid" aria-label="Cargando productos">
               {Array.from({ length: 8 }, (_, index) => <ProductCardSkeleton key={index} />)}
             </div>
           ) : errorMessage ? (
             <EmptyProductsState isError message={errorMessage} />
-          ) : products.length > 0 ? (
-            <div className="product-catalog__grid">
-              {products.map((product) => <ProductCard key={product.id} product={product} />)}
-            </div>
+          ) : filteredProducts.length > 0 ? (
+            <>
+              <div className="product-catalog__grid">
+                {paginatedProducts.map((product) => <ProductCard key={product.id} product={product} />)}
+              </div>
+
+              {totalPages > 1 && (
+                <nav className="product-pagination" aria-label="Paginación de productos">
+                  <p className="product-pagination__info" aria-live="polite">
+                    Mostrando {firstVisibleProduct}-{lastVisibleProduct} de {filteredProducts.length} productos ·
+                    Página {validCurrentPage} de {totalPages}
+                  </p>
+
+                  <div className="product-pagination__controls">
+                    <button
+                      type="button"
+                      onClick={() => handlePageChange(validCurrentPage - 1)}
+                      disabled={validCurrentPage === 1}
+                    >
+                      Anterior
+                    </button>
+
+                    {Array.from({ length: totalPages }, (_, index) => {
+                      const page = index + 1;
+                      return (
+                        <button
+                          type="button"
+                          key={page}
+                          className={
+                            page === validCurrentPage
+                              ? "product-pagination__page product-pagination__page--active"
+                              : "product-pagination__page"
+                          }
+                          onClick={() => handlePageChange(page)}
+                          aria-current={page === validCurrentPage ? "page" : undefined}
+                        >
+                          {page}
+                        </button>
+                      );
+                    })}
+
+                    <button
+                      type="button"
+                      onClick={() => handlePageChange(validCurrentPage + 1)}
+                      disabled={validCurrentPage === totalPages}
+                    >
+                      Siguiente
+                    </button>
+                  </div>
+                </nav>
+              )}
+            </>
           ) : (
             <EmptyProductsState
               message="Probá ajustar la búsqueda, cambiar el rango de precio o limpiar los filtros."
