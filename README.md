@@ -21,7 +21,11 @@ Built with React, Node.js, Express and PostgreSQL.
 - Stock-aware checkout
 - Mobile optimized experience
 
----https://res.cloudinary.com/dbkfkpjjl/image/upload/v1779806100/Screenshot_2026-05-14_at_10-58-54_HARTA_bbqszq.png
+<p align="center">
+  <img src="https://res.cloudinary.com/dbkfkpjjl/image/upload/v1779806100/Screenshot_2026-05-14_at_10-58-54_HARTA_bbqszq.png" width="100%" />
+</p>
+
+---
 
 ## Authentication & Security
 
@@ -47,7 +51,11 @@ Built with React, Node.js, Express and PostgreSQL.
 - Payment status synchronization
 - Webhook handling
 
---- https://res.cloudinary.com/dbkfkpjjl/image/upload/v1779806289/Screenshot_2026-05-26_at_11-36-22_HARTA_a8wjkd.png
+<p align="center">
+  <img src="https://res.cloudinary.com/dbkfkpjjl/image/upload/v1779806289/Screenshot_2026-05-26_at_11-36-22_HARTA_a8wjkd.png" width="100%" />
+</p>
+
+---
 
 ## Admin Panel
 
@@ -59,7 +67,11 @@ Built with React, Node.js, Express and PostgreSQL.
 - Product activation/deactivation
 - Real-time order monitoring
 
---- https://res.cloudinary.com/dbkfkpjjl/image/upload/v1779806301/Screenshot_2026-05-26_at_11-37-08_HARTA_jjz4hn.png
+<p align="center">
+  <img src="https://res.cloudinary.com/dbkfkpjjl/image/upload/v1779806301/Screenshot_2026-05-26_at_11-37-08_HARTA_jjz4hn.png" width="100%" />
+</p>
+
+---
 
 ## Inventory & Order Logic
 
@@ -70,7 +82,11 @@ Built with React, Node.js, Express and PostgreSQL.
 - Transaction-safe order processing
 - Business-rule based order transitions
 
---- https://res.cloudinary.com/dbkfkpjjl/image/upload/v1779806284/Screenshot_2026-05-26_at_11-35-42_HARTA_fvtqb0.png
+<p align="center">
+  <img src="https://res.cloudinary.com/dbkfkpjjl/image/upload/v1779806284/Screenshot_2026-05-26_at_11-35-42_HARTA_fvtqb0.png" width="100%" />
+</p>
+
+---
 
 # 🛠 Tech Stack
 
@@ -205,7 +221,6 @@ Eduardo Gomez
 - GitHub: https://github.com/Eduman8
 - LinkedIn: https://www.linkedin.com/in/eduardo-dami%C3%A1n-g%C3%B3mez-89a432217/
 - Email: eduman.000@gmail.com
-
 ---
 
 # 📄 License
