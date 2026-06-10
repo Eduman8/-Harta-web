@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Login from "../Login/Login";
 import { useCart } from "../Hooks/useCart";
 import { isAdminUser } from "../utils/adminAccess";
+import navbarLogo from "../src/assets/logo-navbar.png";
 import "./Navbar.css";
 
 function Navbar({ user, setUser }) {
   const navigate = useNavigate();
-  const [theme, setTheme] = useState("light");
   const [showLogin, setShowLogin] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -43,23 +43,6 @@ function Navbar({ user, setUser }) {
   );
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute("data-theme", savedTheme);
-    } else {
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches;
-
-      const defaultTheme = prefersDark ? "dark" : "light";
-      setTheme(defaultTheme);
-      document.documentElement.setAttribute("data-theme", defaultTheme);
-    }
-  }, []);
-
-  useEffect(() => {
     document.body.classList.toggle("no-scroll", showCart);
     return () => document.body.classList.remove("no-scroll");
   }, [showCart]);
@@ -67,13 +50,6 @@ function Navbar({ user, setUser }) {
   useEffect(() => {
     if (showCart) setMobileMenuOpen(false);
   }, [showCart]);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -99,7 +75,9 @@ function Navbar({ user, setUser }) {
     <>
       <nav className="navbar">
         <div className="nav-left">
-          <h2 className="logo">#HARTA</h2>
+          <Link className="logo" to="/" aria-label="Ir al inicio de #HARTA" onClick={() => setMobileMenuOpen(false)}>
+            <img src={navbarLogo} alt="#HARTA" />
+          </Link>
 
           <div className={mobileMenuOpen ? "links links--open" : "links"} id="primary-navigation">
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>Inicio</Link>
@@ -123,10 +101,6 @@ function Navbar({ user, setUser }) {
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
           </button>
-          <button type="button" className="theme-btn" onClick={toggleTheme} aria-label="Cambiar tema">
-            {theme === "light" ? "🌙" : "☀️"}
-          </button>
-
           <div className="cart-container">
             <button type="button" className="cart-btn" onClick={() => setShowCart(!showCart)} aria-label={`Abrir carrito${cartCount > 0 ? `, ${cartCount} productos` : ""}`}>
               🛒
