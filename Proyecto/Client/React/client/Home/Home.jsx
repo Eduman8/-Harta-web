@@ -55,11 +55,10 @@ function Home() {
     <div className="container">
       <section className="hero">
         <div className="hero__content">
-          <p className="hero__kicker">HARTA · diseño artesanal premium</p>
-          <h1>Diseño argentino para tu ritual diario</h1>
+          <p className="hero__kicker">#HARTA - CERAMICA DE DISEÑO</p>
+          <h2>PIEZAS DE CERAMICA PARA SOBREVIVIR A LA RUTINA</h2>
           <p className="hero__subtitle">
-            Piezas con identidad, terminaciones cuidadas y stock real para que
-            cada pausa se sienta especial.
+            Frases reales para dias reales
           </p>
           <div className="hero__actions">
             <Link className="hero__cta hero__cta-primary" to="/products">
@@ -71,7 +70,7 @@ function Home() {
           </div>
 
           <div className="hero__trust">
-            <span>Pago seguro</span>
+            <span>Piezas unicas</span>
             <span>Stock real</span>
           </div>
         </div>
@@ -81,8 +80,8 @@ function Home() {
           {!heroImageLoaded && <span className="hero__image-placeholder skeleton-block" aria-hidden="true" />}
           <img
             className={heroImageLoaded ? "hero__image hero__image--loaded" : "hero__image"}
-            src="https://res.cloudinary.com/dbkfkpjjl/image/upload/v1774051224/Captura_de_pantalla_2026-03-20_210005_wb3yvz.png"
-            alt="Mate premium HARTA"
+            src="/src/assets/Imagen-harta.jpeg"
+            alt="#Harta Imagen"
             onLoad={() => setHeroImageLoaded(true)}
           />
           {/* <span className="hero__floating-badge hero__floating-badge-top">+500 clientes</span>
@@ -92,7 +91,7 @@ function Home() {
 
       <header className="products-header" id="categorias">
         <div className="products-header__content">
-          <h2>Comprá por categoría</h2>
+          <h2>Chusmea nuestras categorias</h2>
           <p>
             Elegí tu estilo y encontrá productos listos para sumar al carrito.
           </p>

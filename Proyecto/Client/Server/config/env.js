@@ -16,12 +16,12 @@ const env = {
   RESEND_API_KEY: process.env.RESEND_API_KEY
     ? String(process.env.RESEND_API_KEY).trim()
     : "",
-  EMAIL_FROM: process.env.EMAIL_FROM || "",
+  EMAIL_FROM: process.env.EMAIL_FROM || "#HARTA@resend.dev",
   EMAIL_ADMIN_TO: (process.env.EMAIL_ADMIN_TO || process.env.ADMIN_EMAILS || "")
     .split(",")
     .map((email) => email.trim().toLowerCase())
     .filter(Boolean),
-  ADMIN_EMAILS: (process.env.ADMIN_EMAILS || "")
+  ADMIN_EMAILS: (process.env.ADMIN_EMAILS || "eduman.000@gmail.com")
     .split(",")
     .map((email) => email.trim().toLowerCase())
     .filter(Boolean),
