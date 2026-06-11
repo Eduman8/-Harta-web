@@ -31,10 +31,11 @@
   white-space: nowrap;
 }
 .navbar-logo-img {
+  margin-bottom: 7px;
   height: 50px;
   width: auto;
-  transform: scale(1.8);
-  transform-origin: left center;
+  transform: scale(2.4);
+  /* transform-origin: left center; */
 }
 
 .links {
