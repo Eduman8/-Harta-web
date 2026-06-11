@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: clamp(8px, 2vw, 16px);
   min-height: 68px;
   padding: 10px clamp(14px, 3vw, 30px);
   border-bottom: 1px solid var(--border);
@@ -31,11 +31,12 @@
   white-space: nowrap;
 }
 .navbar-logo-img {
-  margin-bottom: 7px;
-  height: 50px;
-  width: auto;
-  transform: scale(2.4);
-  /* transform-origin: left center; */
+  display: block;
+  width: clamp(92px, 14vw, 132px);
+  height: auto;
+  max-height: 50px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .links {
@@ -68,6 +69,7 @@
   justify-content: flex-end;
   gap: 8px;
   min-width: 0;
+  flex: 0 1 auto;
 }
 
 .theme-btn,
@@ -407,6 +409,12 @@
 
   .nav-left {
     min-width: 0;
+    gap: 8px;
+  }
+
+  .navbar-logo-img {
+    width: clamp(84px, 22vw, 112px);
+    max-height: 44px;
   }
 
   .nav-right {
@@ -455,9 +463,13 @@
   .cart-btn,
   .login-btn,
   .nav-menu-btn {
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 42px;
+    min-width: 42px;
     padding: 8px 10px;
+  }
+
+  .navbar-logo-img {
+    width: clamp(76px, 26vw, 98px);
   }
 
   .login-btn {
@@ -506,6 +518,14 @@
 @media (max-width: 420px) {
   .logo {
     font-size: 1rem;
+  }
+
+  .navbar {
+    padding-inline: 8px;
+  }
+
+  .navbar-logo-img {
+    width: clamp(64px, 24vw, 84px);
   }
 
   .nav-right {

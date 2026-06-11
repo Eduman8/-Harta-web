@@ -1,7 +1,8 @@
 .admin-orders-page {
-  max-width: 1140px;
-  margin: 20px auto;
-  padding: 0 16px 40px;
+  width: min(1140px, 100%);
+  margin: clamp(12px, 3vw, 20px) auto;
+  padding: 0 clamp(10px, 3vw, 16px) 40px;
+  overflow-x: clip;
 }
 
 .admin-orders-header {
@@ -25,7 +26,7 @@
 .admin-order-card {
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 16px;
+  padding: clamp(12px, 2vw, 16px);
   background: var(--card);
   box-shadow: var(--shadow-soft);
   display: grid;
@@ -48,6 +49,7 @@
   display: flex;
   justify-content: space-between;
   gap: 12px;
+  min-width: 0;
 }
 
 .admin-order-card-header,
@@ -67,6 +69,7 @@
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 8px;
+  min-width: 0;
 }
 
 .admin-order-pill,
@@ -163,7 +166,7 @@
 
 .admin-order-item-row {
   display: grid;
-  grid-template-columns: 2fr repeat(3, 1fr);
+  grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
   gap: 12px;
   font-size: 0.95rem;
   border: 1px solid var(--border);
@@ -254,6 +257,11 @@
 }
 
 @media (max-width: 768px) {
+  .admin-orders-header h1 {
+    font-size: clamp(1.6rem, 8vw, 2rem);
+    line-height: 1.08;
+  }
+
   .admin-order-card-header,
   .admin-order-block-title-row,
   .admin-order-actions {
