@@ -135,7 +135,7 @@
   object-fit: cover;
   border-radius: 30px;
   border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
-  box-shadow: 0 30px 64px rgba(34, 21, 64, 0.23);
+  box-shadow: 0 30px 64px #a0a0a0;
   position: relative;
   z-index: 1;
 }

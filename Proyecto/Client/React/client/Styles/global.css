@@ -3,20 +3,20 @@
 :root {
   --bg: #f6f4fb;
   --surface: #ffffff;
-  --surface-soft: #f2eefb;
+  --surface-soft: #C6C5C5;
   --primary: #114a29;
   --primary-hover: #114a29;
-  --text: #1f1733;
-  --text-soft: #6b6380;
+  --text: #000000;
+  --text-soft: #000000;
   --border: #ddd6f3;
   --success: #12b76a;
   --danger: #ef4444;
   --warning: #f59e0b;
   --info: #6aa4ff;
   --on-primary: #f8f7ff;
-  --shadow: 0 10px 28px rgba(71, 51, 120, 0.1);
-  --shadow-soft: 0 6px 16px rgba(66, 45, 113, 0.08);
-  --shadow-hero: #114a29;
+  --shadow: 0 10px 20px rgb(197, 197, 198);
+  --shadow-soft: 0 6px 16px rgb(197, 197, 198);
+  --shadow-hero: #C6C5C5;
 
   /* Compat aliases for existing styles */
   --bg-soft: var(--surface-soft);
@@ -48,7 +48,7 @@
   --card: var(--surface);
   --text-muted: var(--text-soft);
   --primary-strong: var(--primary-hover);
-  --accent: #4a3b74;
+  --accent: rgb(197, 197, 198);
 }
 
 * {
