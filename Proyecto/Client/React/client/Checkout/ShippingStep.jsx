@@ -1,5 +1,5 @@
 import { getShippingMethodLabel } from "../utils/orderLabels";
-import { HOME_DELIVERY_FIXED_COST, PICKUP_LOCATION_LABEL } from "./checkout.config";
+import { PICKUP_LOCATION_LABEL } from "./checkout.config";
 
 function ShippingStep({ shippingMethod, onChange, cashSelected = false, contactInfo, onContactChange }) {
   const options = [
@@ -13,8 +13,7 @@ function ShippingStep({ shippingMethod, onChange, cashSelected = false, contactI
     {
       value: "home_delivery",
       label: getShippingMethodLabel("home_delivery"),
-      price: `$${HOME_DELIVERY_FIXED_COST.toLocaleString("es-AR")}`,
-      description: "Sujeto a disponibilidad y coordinación con la tienda.",
+      description: "Acordar con el vendedor.",
     },
   ];
 
@@ -44,7 +43,7 @@ function ShippingStep({ shippingMethod, onChange, cashSelected = false, contactI
                   {option.badge && <span className="checkout-badge">{option.badge}</span>}
                 </span>
                 <span>{option.description}</span>
-                <strong>{option.price}</strong>
+                {option.price && <strong>{option.price}</strong>}
               </span>
             </label>
           );
@@ -62,11 +61,6 @@ function ShippingStep({ shippingMethod, onChange, cashSelected = false, contactI
           <p>Retirás tu pedido en {PICKUP_LOCATION_LABEL}.</p>
           <p>Coordinaremos el retiro cuando tu pedido esté confirmado.</p>
           <div className="checkout-grid">
-            <input
-              placeholder="Nombre de contacto"
-              value={contactInfo.name}
-              onChange={(e) => onContactChange("name", e.target.value)}
-            />
             <input
               placeholder="Teléfono de contacto"
               value={contactInfo.phone}
