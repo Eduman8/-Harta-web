@@ -42,7 +42,8 @@
   font-weight: 700;
 }
 
-.hero__content h1 {
+.hero__content h1,
+.hero__content h2 {
   margin: 0;
   font-size: clamp(2.15rem, 4.4vw, 3.4rem);
   line-height: 1.02;
@@ -242,7 +243,20 @@
   }
 
   .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
     margin-bottom: 20px;
+  }
+
+  .hero__content {
+    order: 2;
+  }
+
+  .hero__visual {
+    order: 1;
+    width: 100%;
   }
 
   .hero__subtitle {
@@ -250,6 +264,11 @@
   }
 
   .hero__visual img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
     border-radius: 22px;
   }
 
@@ -317,6 +336,8 @@
 
 @media (max-width: 768px) {
   .hero__image-placeholder {
+    width: 100%;
+    max-width: none;
     border-radius: 22px;
   }
 }

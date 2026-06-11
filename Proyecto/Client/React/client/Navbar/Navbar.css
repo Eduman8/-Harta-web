@@ -413,8 +413,8 @@
   }
 
   .navbar-logo-img {
-    width: clamp(84px, 22vw, 112px);
-    max-height: 44px;
+    width: clamp(132px, 30vw, 190px);
+    max-height: 54px;
   }
 
   .nav-right {
@@ -469,7 +469,8 @@
   }
 
   .navbar-logo-img {
-    width: clamp(76px, 26vw, 98px);
+    width: clamp(128px, 34vw, 176px);
+    max-height: 52px;
   }
 
   .login-btn {
@@ -525,7 +526,8 @@
   }
 
   .navbar-logo-img {
-    width: clamp(64px, 24vw, 84px);
+    width: clamp(120px, 38vw, 160px);
+    max-height: 50px;
   }
 
   .nav-right {
