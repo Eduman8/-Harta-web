@@ -4,6 +4,7 @@ import Login from "../Login/Login";
 import { useCart } from "../Hooks/useCart";
 import { isAdminUser } from "../utils/adminAccess";
 import "./Navbar.css";
+import logoNavBar from "../src/assets/logo-navbar.png";
 
 function Navbar({ user, setUser }) {
   const navigate = useNavigate();
@@ -99,8 +100,11 @@ function Navbar({ user, setUser }) {
     <>
       <nav className="navbar">
         <div className="nav-left">
-          <h2 className="logo">#HARTA</h2>
-
+          <img
+            src={logoNavBar}
+            alt="#HARTA"
+            className="navbar-logo-img"
+          />
           <div className={mobileMenuOpen ? "links links--open" : "links"} id="primary-navigation">
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>Inicio</Link>
             <Link to="/products" onClick={() => setMobileMenuOpen(false)}>Productos</Link>
@@ -123,9 +127,9 @@ function Navbar({ user, setUser }) {
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
           </button>
-          <button type="button" className="theme-btn" onClick={toggleTheme} aria-label="Cambiar tema">
+          {/* <button type="button" className="theme-btn" onClick={toggleTheme} aria-label="Cambiar tema">
             {theme === "light" ? "🌙" : "☀️"}
-          </button>
+          </button> */}
 
           <div className="cart-container">
             <button type="button" className="cart-btn" onClick={() => setShowCart(!showCart)} aria-label={`Abrir carrito${cartCount > 0 ? `, ${cartCount} productos` : ""}`}>
