@@ -365,7 +365,7 @@ function AdminCategoriesPage({ onSessionExpired }) {
                 <div className="admin-product-fields">
                   <div className="admin-product-title-row">
                     <h3>{draft.name || category.name}</h3>
-                    {!isActive && <span className="badge badge-inactive">Inactiva</span>}
+                    {!isActive && <span className="admin-product-badge admin-product-badge-inactive">Inactiva</span>}
                   </div>
 
                   <div className="admin-product-grid admin-category-grid">

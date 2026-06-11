@@ -60,6 +60,8 @@ const normalizeImageInputs = (images = []) =>
     .map((image) => String(image || "").trim())
     .filter(Boolean);
 
+const getProductCategoryId = (product = {}) => product.category_id ?? product.categoryId ?? "";
+
 const imageFieldLabels = [
   "Imagen principal",
   "Imagen secundaria (opcional)",
@@ -78,6 +80,7 @@ function AdminProductsPage({ onSessionExpired }) {
   const [deletingById, setDeletingById] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [categoriesError, setCategoriesError] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const { success, warning, error: notifyError, info } = useNotification();
 
   const notifySessionExpired = () => {
@@ -152,7 +155,7 @@ function AdminProductsPage({ onSessionExpired }) {
             name: product.name || "",
             description: product.description || "",
             price: String(product.price ?? ""),
-            categoryId: String(product.category_id || ""),
+            categoryId: String(getProductCategoryId(product)),
             images: toImageInputs(getProductImages(product)),
             stock: String(product.stock ?? 0),
             active: Boolean(product.active),
@@ -214,6 +217,17 @@ function AdminProductsPage({ onSessionExpired }) {
       };
     });
   };
+
+  const filteredProducts = useMemo(() => {
+    if (!selectedCategoryId) return products;
+
+    return products.filter((product) => String(getProductCategoryId(product)) === selectedCategoryId);
+  }, [products, selectedCategoryId]);
+
+  const selectedCategory = useMemo(
+    () => categories.find((category) => String(category.id) === selectedCategoryId),
+    [categories, selectedCategoryId],
+  );
 
   const summary = useMemo(() => {
     const total = products.length;
@@ -402,6 +416,28 @@ function AdminProductsPage({ onSessionExpired }) {
         <span>Sin stock: {summary.noStock}</span>
       </div>
 
+      <div className="admin-products-filter" aria-label="Filtro de productos por categoría">
+        <label htmlFor="admin-category-filter">Filtrar publicaciones</label>
+        <select
+          id="admin-category-filter"
+          value={selectedCategoryId}
+          onChange={(event) => setSelectedCategoryId(event.target.value)}
+          disabled={loadingCategories || categories.length === 0}
+        >
+          <option value="">Todas las publicaciones</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}{!category.active ? " (inactiva)" : ""}
+            </option>
+          ))}
+        </select>
+        <span>
+          {selectedCategoryId
+            ? `${filteredProducts.length} de ${products.length} publicaciones en ${selectedCategory?.name || "esta categoría"}`
+            : `${products.length} publicaciones en total`}
+        </span>
+      </div>
+
       <form className="admin-products-create" onSubmit={createProduct}>
         <h2>Crear producto</h2>
         <input name="name" placeholder="Nombre" value={form.name} onChange={handleCreateChange} required />
@@ -457,10 +493,13 @@ function AdminProductsPage({ onSessionExpired }) {
       {loading && <p className="admin-state">Cargando productos...</p>}
       {!loading && errorMessage && <p className="admin-state admin-state-error">{errorMessage}</p>}
       {!loading && !errorMessage && products.length === 0 && <p className="admin-state">No hay productos.</p>}
+      {!loading && !errorMessage && products.length > 0 && filteredProducts.length === 0 && (
+        <p className="admin-state">No hay productos en esta categoría.</p>
+      )}
 
-      {!loading && !errorMessage && products.length > 0 && (
+      {!loading && !errorMessage && filteredProducts.length > 0 && (
         <div className="admin-products-list">
-          {products.map((product) => {
+          {filteredProducts.map((product) => {
             const draft = draftsById[product.id] || {};
             const draftImages = draft.images || toImageInputs(getProductImages(product));
             const previewImage = normalizeImageInputs(draftImages)[0] || "https://via.placeholder.com/120x120?text=Sin+Imagen";
@@ -473,8 +512,8 @@ function AdminProductsPage({ onSessionExpired }) {
                 <div className="admin-product-fields">
                   <div className="admin-product-title-row">
                     <h3>{draft.name || product.name}</h3>
-                    {!isActive && <span className="badge badge-inactive">Inactivo</span>}
-                    {!hasStock && <span className="badge badge-stock">Sin stock</span>}
+                    {!isActive && <span className="admin-product-badge admin-product-badge-inactive">Inactivo</span>}
+                    {!hasStock && <span className="admin-product-badge admin-product-badge-stock">Sin stock</span>}
                   </div>
 
                   <div className="admin-product-grid">
