@@ -2,13 +2,6 @@ import { Link } from "react-router-dom";
 import { BRAND_LINKS, BRAND_WHATSAPP_URL } from "../config/brandLinks";
 import "./Footer.css";
 
-const quickLinks = [
-  { label: "Inicio", to: "/" },
-  { label: "Productos", to: "/products" },
-  { label: "Categorías", to: "/#categorias" },
-  { label: "Mis pedidos", to: "/orders" },
-];
-
 function Footer() {
   return (
     <footer className="site-footer" aria-labelledby="site-footer-title">
@@ -17,19 +10,8 @@ function Footer() {
           <Link className="site-footer__logo" to="/" id="site-footer-title">
             #HARTA
           </Link>
-          <p>Diseño, estilo y productos seleccionados con identidad propia.</p>
+          <p>Cerámica de diseño con identidad propia.</p>
         </section>
-
-        <nav className="site-footer__section" aria-label="Links rápidos">
-          <h2>Explorar</h2>
-          <ul>
-            {quickLinks.map((link) => (
-              <li key={link.label}>
-                <Link to={link.to}>{link.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
 
         <section className="site-footer__section" aria-label="Redes sociales">
           <h2>Redes</h2>
