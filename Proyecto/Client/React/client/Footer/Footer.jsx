@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { BRAND_LINKS, BRAND_WHATSAPP_URL } from "../config/brandLinks";
 import "./Footer.css";
+import { FaInstagram } from "react-icons/fa6";
+import { FaWhatsapp } from "react-icons/fa";
+import { CiMail } from "react-icons/ci";
 
 function Footer() {
   return (
@@ -18,15 +21,16 @@ function Footer() {
           <ul>
             <li>
               <a
-                href={BRAND_LINKS.instagramBrand}
+                className="site-footer__instagram"
+                href={BRAND_LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Abrir Instagram de la marca #HARTA en una nueva pestaña"
+                aria-label="Visitar Instagram de #HARTA en una nueva pestaña"
               >
-                Instagram #HARTA
+                <FaInstagram /> Instagram #HARTA
               </a>
             </li>
-            <li>
+            {/* <li>
               <a
                 href={BRAND_LINKS.instagramOwner}
                 target="_blank"
@@ -35,7 +39,7 @@ function Footer() {
               >
                 Instagram dueña
               </a>
-            </li>
+            </li> */}
           </ul>
         </section>
 
@@ -50,12 +54,14 @@ function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Consultar por WhatsApp sobre un producto de #HARTA en una nueva pestaña"
               >
-                WhatsApp consultas
+               <FaWhatsapp /> WhatsApp consultas
               </a>
             </li>
             <li>
-              <a href={BRAND_LINKS.email} aria-label="Enviar email a #HARTA">
-                contacto@harta.com
+              <a className="site-footer__email"
+              href={BRAND_LINKS.email} aria-label="Enviar email a #HARTA">
+                <CiMail />
+                 Consultas por e-mail
               </a>
             </li>
           </ul>

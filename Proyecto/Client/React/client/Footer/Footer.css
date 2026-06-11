@@ -92,11 +92,14 @@
 
 .site-footer__whatsapp {
   color: color-mix(in srgb, var(--success) 78%, var(--text)) !important;
+  font-weight: 700;
+  gap: 0.1rem;
 }
 
 .site-footer__whatsapp::before {
-  content: "✦";
-  margin-right: 0.45rem;
+  content: "";
+  /* margin-right: 0.25rem; */
+  
   color: currentColor;
 }
 
@@ -106,7 +109,20 @@
   text-align: center;
   font-size: 0.9rem;
 }
-
+.site-footer__instagram {
+  color: #c13584 !;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.site-footer__email {
+  color: #000000;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
 @media (max-width: 900px) {
   .site-footer__inner {
     grid-template-columns: repeat(2, minmax(0, 1fr));
