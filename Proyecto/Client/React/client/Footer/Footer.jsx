@@ -23,7 +23,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Abrir Instagram de la marca #HARTA en una nueva pestaña"
               >
-                Instagram marca
+                Instagram #HARTA
               </a>
             </li>
             <li>
