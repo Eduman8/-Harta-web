@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../Hooks/useCart";
 import AddressStep from "./AddressStep";
@@ -18,7 +18,6 @@ const initialAddress = {
 };
 
 const initialContactInfo = {
-  name: "",
   phone: "",
   note: "",
 };
@@ -139,10 +138,7 @@ function CheckoutPage({ user }) {
     confirmMercadoPago();
   }, [location.search, user, confirmMercadoPagoOrder, navigate, mpConfirmed]);
 
-  const shippingCost = useMemo(
-    () => (shippingMethod === "home_delivery" ? HOME_DELIVERY_FIXED_COST : 0),
-    [shippingMethod],
-  );
+  const shippingCost = HOME_DELIVERY_FIXED_COST;
 
   useEffect(() => {
     if (paymentMethod === "cash" && shippingMethod === "home_delivery") {
@@ -203,8 +199,8 @@ function CheckoutPage({ user }) {
     }
 
     if (shippingMethod === "pickup") {
-      if (!contactInfo.name.trim() || !contactInfo.phone.trim()) {
-        throw new Error("Completá nombre y teléfono de contacto para retirar en local.");
+      if (!contactInfo.phone.trim()) {
+        throw new Error("Completá teléfono de contacto para retirar en local.");
       }
       return;
     }
@@ -219,7 +215,7 @@ function CheckoutPage({ user }) {
       return {
         fulfillment: "pickup",
         pickupLocation: PICKUP_LOCATION_LABEL,
-        contactName: contactInfo.name.trim(),
+        contactName: user.name?.trim() || null,
         contactPhone: contactInfo.phone.trim(),
         note: contactInfo.note.trim() || null,
       };
