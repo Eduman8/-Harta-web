@@ -10,17 +10,17 @@
 .site-footer__inner {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
-  padding: clamp(2rem, 5vw, 3.25rem) 0;
+  padding: clamp(1.4rem, 3vw, 2.15rem) 0;
   display: grid;
-  grid-template-columns: minmax(220px, 1.45fr) repeat(3, minmax(150px, 1fr));
-  gap: clamp(1.5rem, 4vw, 3rem);
+  grid-template-columns: minmax(220px, 1.55fr) repeat(2, minmax(150px, 1fr));
+  gap: clamp(1rem, 3vw, 2.25rem);
 }
 
 .site-footer__brand {
   display: grid;
   align-content: start;
-  gap: 0.75rem;
-  max-width: 340px;
+  gap: 0.35rem;
+  max-width: 300px;
 }
 
 .site-footer__logo {
@@ -40,13 +40,13 @@
 }
 
 .site-footer__brand p {
-  line-height: 1.75;
+  line-height: 1.55;
 }
 
 .site-footer__section {
   display: grid;
   align-content: start;
-  gap: 0.85rem;
+  gap: 0.65rem;
 }
 
 .site-footer__section h2 {
@@ -61,7 +61,7 @@
 .site-footer__section ul {
   list-style: none;
   display: grid;
-  gap: 0.55rem;
+  gap: 0.35rem;
 }
 
 .site-footer a {
@@ -72,10 +72,10 @@
 }
 
 .site-footer__section a {
-  min-height: 34px;
+  min-height: 30px;
   display: inline-flex;
   align-items: center;
-  padding: 0.2rem 0.35rem;
+  padding: 0.12rem 0.35rem;
   margin-left: -0.35rem;
   font-weight: 700;
 }
@@ -102,7 +102,7 @@
 
 .site-footer__bottom {
   border-top: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
-  padding: 1rem max(16px, calc((100vw - 1180px) / 2));
+  padding: 0.75rem max(16px, calc((100vw - 1180px) / 2));
   text-align: center;
   font-size: 0.9rem;
 }
@@ -125,8 +125,8 @@
   .site-footer__inner {
     width: min(100% - 24px, 1180px);
     grid-template-columns: 1fr;
-    gap: 1.35rem;
-    padding: 2rem 0 calc(2rem + env(safe-area-inset-bottom));
+    gap: 1rem;
+    padding: 1.35rem 0 calc(1.35rem + env(safe-area-inset-bottom));
   }
 
   .site-footer__brand {
@@ -134,17 +134,17 @@
   }
 
   .site-footer__section ul {
-    gap: 0.4rem;
+    gap: 0.25rem;
   }
 
   .site-footer__section a {
     width: 100%;
-    min-height: 44px;
-    padding: 0.55rem 0.65rem;
+    min-height: 38px;
+    padding: 0.35rem 0.65rem;
     margin-left: -0.65rem;
   }
 
   .site-footer__bottom {
-    padding: 1rem 12px calc(1rem + env(safe-area-inset-bottom));
+    padding: 0.75rem 12px calc(0.75rem + env(safe-area-inset-bottom));
   }
 }
