@@ -21,13 +21,14 @@ function Footer() {
           <ul>
             <li>
               <a
-                className="site-footer__instagram"
-                href={BRAND_LINKS.instagram}
+                className="site-footer__social-link site-footer__instagram"
+                href={BRAND_LINKS.instagramBrand}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visitar Instagram de #HARTA en una nueva pestaña"
               >
-                <FaInstagram /> Instagram #HARTA
+                <FaInstagram aria-hidden="true" />
+                <span>Instagram #HARTA</span>
               </a>
             </li>
             {/* <li>
@@ -54,14 +55,14 @@ function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Consultar por WhatsApp sobre un producto de #HARTA en una nueva pestaña"
               >
-               <FaWhatsapp /> WhatsApp consultas
+                <FaWhatsapp /> WhatsApp consultas
               </a>
             </li>
             <li>
               <a className="site-footer__email"
-              href={BRAND_LINKS.email} aria-label="Enviar email a #HARTA">
+                href={BRAND_LINKS.email} aria-label="Enviar email a #HARTA">
                 <CiMail />
-                 Consultas por e-mail
+                Consultas por e-mail
               </a>
             </li>
           </ul>
