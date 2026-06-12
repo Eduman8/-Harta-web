@@ -479,14 +479,16 @@ function AdminProductsPage({ onSessionExpired }) {
           ))}
         </div>
         <textarea name="description" placeholder="Descripción" value={form.description} onChange={handleCreateChange} rows={2} />
-        <label className="admin-checkbox">
-          <input type="checkbox" name="active" checked={form.active} onChange={handleCreateChange} />
-          Producto activo
-        </label>
-        <label className="admin-checkbox">
-          <input type="checkbox" name="is_hotsale" checked={form.is_hotsale} onChange={handleCreateChange} />
-          Producto en #HOTSALE
-        </label>
+        <div className="admin-product-options" aria-label="Opciones del producto">
+          <label className="admin-product-toggle">
+            <input type="checkbox" name="active" checked={form.active} onChange={handleCreateChange} />
+            <span>Producto activo</span>
+          </label>
+          <label className="admin-product-toggle">
+            <input type="checkbox" name="is_hotsale" checked={form.is_hotsale} onChange={handleCreateChange} />
+            <span>Producto en #HOTSALE</span>
+          </label>
+        </div>
         <button type="submit" disabled={submitting || loadingCategories || categories.length === 0}>
           {submitting ? "Guardando..." : "Crear producto"}
         </button>
@@ -556,14 +558,16 @@ function AdminProductsPage({ onSessionExpired }) {
                       ))}
                     </div>
                     <textarea name="description" rows={2} value={draft.description || ""} onChange={(event) => handleDraftChange(product.id, event)} />
-                    <label className="admin-checkbox">
-                      <input type="checkbox" name="active" checked={isActive} onChange={(event) => handleDraftChange(product.id, event)} />
-                      Activo
-                    </label>
-                    <label className="admin-checkbox">
-                      <input type="checkbox" name="is_hotsale" checked={isHotsale} onChange={(event) => handleDraftChange(product.id, event)} />
-                      Producto en #HOTSALE
-                    </label>
+                    <div className="admin-product-options" aria-label="Opciones del producto">
+                      <label className="admin-product-toggle">
+                        <input type="checkbox" name="active" checked={isActive} onChange={(event) => handleDraftChange(product.id, event)} />
+                        <span>Producto activo</span>
+                      </label>
+                      <label className="admin-product-toggle">
+                        <input type="checkbox" name="is_hotsale" checked={isHotsale} onChange={(event) => handleDraftChange(product.id, event)} />
+                        <span>Producto en #HOTSALE</span>
+                      </label>
+                    </div>
                   </div>
                 </div>
 
