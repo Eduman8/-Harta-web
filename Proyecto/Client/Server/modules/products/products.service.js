@@ -97,6 +97,13 @@ const normalizeActive = (active, fallback = true) => {
   throw { status: 400, payload: { error: "active debe ser boolean" } };
 };
 
+const normalizeHotsale = (isHotsale, fallback = false) => {
+  if (isHotsale === undefined || isHotsale === null) return fallback;
+  if (typeof isHotsale === "boolean") return isHotsale;
+
+  throw { status: 400, payload: { error: "is_hotsale debe ser boolean" } };
+};
+
 const validateAndBuildPayload = async (
   input,
   fallback = {},
@@ -147,6 +154,10 @@ const validateAndBuildPayload = async (
     ...(hasImagesInput ? { images } : {}),
     stock: normalizeStock(input.stock ?? fallback.stock),
     active: normalizeActive(input.active, fallback.active ?? true),
+    isHotsale: normalizeHotsale(
+      input.is_hotsale ?? input.isHotsale,
+      fallback.is_hotsale ?? fallback.isHotsale ?? false,
+    ),
   };
 };
 
@@ -296,6 +307,7 @@ const createProductsService = (productsRepository) => ({
         image: product.image,
         stock: product.stock,
         active: false,
+        isHotsale: product.is_hotsale,
       });
 
       return {

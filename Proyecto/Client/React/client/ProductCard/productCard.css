@@ -25,6 +25,25 @@
   background: var(--bg-soft);
 }
 
+.product-card__hotsale-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  max-width: calc(100% - 20px);
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: 999px;
+  padding: 0.34rem 0.68rem;
+  background: linear-gradient(135deg, #ff3d00, #ffb300);
+  color: #1d0b00;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  font-size: clamp(0.72rem, 2.5vw, 0.8rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 .card__image {
   position: absolute;
   inset: 0;
@@ -501,6 +520,13 @@
   .card__image-wrapper {
     aspect-ratio: 1 / 1;
     border-radius: 12px;
+  }
+
+  .product-card__hotsale-badge {
+    top: 8px;
+    left: 8px;
+    max-width: calc(100% - 16px);
+    padding: 0.3rem 0.58rem;
   }
 
   .card__body {

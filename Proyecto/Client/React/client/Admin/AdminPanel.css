@@ -220,6 +220,12 @@
   border-color: color-mix(in srgb, var(--warning) 80%, var(--border));
 }
 
+.admin-product-badge-hotsale {
+  background: linear-gradient(135deg, #ff3d00, #ffb300);
+  border-color: color-mix(in srgb, #ff6d00 70%, var(--border));
+  color: #1d0b00;
+}
+
 .danger-btn {
   background: color-mix(in srgb, var(--danger) 14%, var(--card));
   color: var(--danger);
