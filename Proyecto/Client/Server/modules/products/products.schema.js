@@ -3,6 +3,7 @@ const ensureProductsSchema = async (pool) => {
     await pool.query(`
       ALTER TABLE products
       ADD COLUMN IF NOT EXISTS active BOOLEAN NOT NULL DEFAULT TRUE,
+      ADD COLUMN IF NOT EXISTS is_hotsale BOOLEAN NOT NULL DEFAULT FALSE,
       ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
       ADD COLUMN IF NOT EXISTS category_id INTEGER;
     `);
@@ -26,6 +27,12 @@ const ensureProductsSchema = async (pool) => {
       UPDATE products
       SET active = TRUE
       WHERE active IS NULL;
+    `);
+
+    await pool.query(`
+      UPDATE products
+      SET is_hotsale = FALSE
+      WHERE is_hotsale IS NULL;
     `);
 
     await pool.query(`

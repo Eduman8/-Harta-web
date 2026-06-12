@@ -18,6 +18,7 @@ const PRODUCT_SELECT_FIELDS = `
   ) AS images,
   p.stock,
   p.active,
+  p.is_hotsale,
   p.created_at,
   p.updated_at
 `;
@@ -136,6 +137,7 @@ const PRODUCT_RETURN_FIELDS = `
   END AS images,
   stock,
   active,
+  is_hotsale,
   created_at,
   updated_at
 `;
@@ -202,6 +204,7 @@ ${PRODUCT_IMAGES_JOIN}       ORDER BY p.id DESC`,
     images,
     stock,
     active,
+    isHotsale,
   }) => {
     const client = await getDbClient(pool);
 
@@ -209,10 +212,10 @@ ${PRODUCT_IMAGES_JOIN}       ORDER BY p.id DESC`,
       await client.query("BEGIN");
 
       const result = await client.query(
-        `INSERT INTO products (name, description, price, category, category_id, image, stock, active)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        `INSERT INTO products (name, description, price, category, category_id, image, stock, active, is_hotsale)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
          RETURNING id`,
-        [name, description, price, category, categoryId, image, stock, active],
+        [name, description, price, category, categoryId, image, stock, active, isHotsale],
       );
 
       const productId = result.rows[0].id;
@@ -243,6 +246,7 @@ ${PRODUCT_IMAGES_JOIN}       ORDER BY p.id DESC`,
     images,
     stock,
     active,
+    isHotsale,
   }) => {
     const client = await getDbClient(pool);
 
@@ -260,10 +264,11 @@ ${PRODUCT_IMAGES_JOIN}       ORDER BY p.id DESC`,
            image = $6,
            stock = $7,
            active = $8,
+           is_hotsale = $9,
            updated_at = NOW()
-         WHERE id = $9
+         WHERE id = $10
          RETURNING id`,
-        [name, description, price, category, categoryId, image, stock, active, id],
+        [name, description, price, category, categoryId, image, stock, active, isHotsale, id],
       );
 
       if (!result.rows[0]) {

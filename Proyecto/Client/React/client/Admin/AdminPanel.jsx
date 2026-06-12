@@ -21,6 +21,7 @@ const initialForm = {
   images: [...emptyImages],
   stock: "0",
   active: true,
+  is_hotsale: false,
 };
 
 const isValidHttpUrl = (value) => {
@@ -159,6 +160,7 @@ function AdminProductsPage({ onSessionExpired }) {
             images: toImageInputs(getProductImages(product)),
             stock: String(product.stock ?? 0),
             active: Boolean(product.active),
+            is_hotsale: Boolean(product.is_hotsale),
           };
           return acc;
         }, {}),
@@ -481,6 +483,10 @@ function AdminProductsPage({ onSessionExpired }) {
           <input type="checkbox" name="active" checked={form.active} onChange={handleCreateChange} />
           Producto activo
         </label>
+        <label className="admin-checkbox">
+          <input type="checkbox" name="is_hotsale" checked={form.is_hotsale} onChange={handleCreateChange} />
+          Producto en #HOTSALE
+        </label>
         <button type="submit" disabled={submitting || loadingCategories || categories.length === 0}>
           {submitting ? "Guardando..." : "Crear producto"}
         </button>
@@ -505,6 +511,7 @@ function AdminProductsPage({ onSessionExpired }) {
             const previewImage = normalizeImageInputs(draftImages)[0] || "https://via.placeholder.com/120x120?text=Sin+Imagen";
             const hasStock = Number(draft.stock ?? product.stock ?? 0) > 0;
             const isActive = Boolean(draft.active);
+            const isHotsale = Boolean(draft.is_hotsale);
 
             return (
               <article key={product.id} className="admin-product-row">
@@ -514,6 +521,7 @@ function AdminProductsPage({ onSessionExpired }) {
                     <h3>{draft.name || product.name}</h3>
                     {!isActive && <span className="admin-product-badge admin-product-badge-inactive">Inactivo</span>}
                     {!hasStock && <span className="admin-product-badge admin-product-badge-stock">Sin stock</span>}
+                    {isHotsale && <span className="admin-product-badge admin-product-badge-hotsale">#HOTSALE</span>}
                   </div>
 
                   <div className="admin-product-grid">
@@ -551,6 +559,10 @@ function AdminProductsPage({ onSessionExpired }) {
                     <label className="admin-checkbox">
                       <input type="checkbox" name="active" checked={isActive} onChange={(event) => handleDraftChange(product.id, event)} />
                       Activo
+                    </label>
+                    <label className="admin-checkbox">
+                      <input type="checkbox" name="is_hotsale" checked={isHotsale} onChange={(event) => handleDraftChange(product.id, event)} />
+                      Producto en #HOTSALE
                     </label>
                   </div>
                 </div>

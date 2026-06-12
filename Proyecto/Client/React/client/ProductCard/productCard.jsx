@@ -20,6 +20,7 @@ function ProductCard({ product }) {
   const hasStock = Number(product?.stock || 0) > 0;
   const isActive = product?.active !== false;
   const canBuy = hasStock && isActive;
+  const isHotsale = product?.is_hotsale === true;
   const stockLabel = !isActive ? "No disponible" : !hasStock ? "Sin stock" : "En stock";
   const stockClass = !isActive || !hasStock ? "stock-pill stock-pill--off" : "stock-pill";
   const description = typeof product?.description === "string" ? product.description.trim() : "";
@@ -65,6 +66,7 @@ function ProductCard({ product }) {
             : "card__image-wrapper"
         }
       >
+        {isHotsale && <span className="product-card__hotsale-badge">#HOTSALE</span>}
         {productImage && !primaryImageLoaded && (
           <span className="card__image-placeholder skeleton-block" aria-hidden="true" />
         )}
